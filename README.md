@@ -6,6 +6,6 @@ Code Goals:
   3. Analyze the propogation of information in the brain using the NeuroDecodeR Toolkit
   
 Important Files:
-  Rastering: convertOphysToRaster.m is the function for converting an ophys session into raster format, and it is implemented by ophysToRasterTest.m
-  Conversion to R: convertOphysToR.R
-  Analysis: ophys_analysis.Rmd, ephys_analysis.Rmd
+  * Rastering: convertOphysToRaster.m is the function for converting an ophys session into raster format, and it is implemented by ophysToRasterTest.m
+  * Conversion to R: convertOphysToR.R
+  * Analysis: ophys_analysis.Rmd, ephys_analysis.Rmd

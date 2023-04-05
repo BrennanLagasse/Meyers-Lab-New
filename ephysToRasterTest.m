@@ -1,5 +1,6 @@
-% Copy of test for converting ephys to raster
-% converting the live script file to a regular MATLAB script
+% File: ephysToRasterTest.m
+% Author: Dr. Ethan Meyers
+% Purpose: Converts a single session from an ephys experiment into raster
 
 % session number for the natural scenes to convert
 % should be a number from 1 to 58 since there are 58 ephys sessions - but

@@ -1,0 +1,128 @@
+---
+title: "Ophys Single Session Analysis"
+author: "Brennan Lagasse, Advised by Dr. Ethan Meyers"
+date: "2023-3-26"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(NeuroDecodeR)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(foreach)
+
+```
+
+
+
+```{r load_raster_data}
+
+raster_dir_name = file.path("R_OphysData", "session_496908818", "natural_scenes")
+file_name = "517404519.rda"
+
+load(file.path(raster_dir_name, file_name))
+
+test_valid_raster_format(file.path(raster_dir_name, file_name))
+
+plot(raster_data, main = "Test")
+
+```
+
+
+```{r bin_data}
+
+save_dir_name <- file.path("R_OphysData_Binned", "session_496908818", "natural_scenes")
+
+# Sampling interval is the amount of time between measures
+
+binned_file_name <- create_binned_data(raster_dir_name,
+                                       file.path(save_dir_name, "ZD"),
+                                       1, 32)
+
+```
+
+``` {r stimulus_counts}
+
+label_rep_info <- get_num_label_repetitions(binned_file_name, "natural_scene_stimulus_id") 
+plot(label_rep_info)  
+
+```
+
+
+**Decoding Analysis**
+
+Performing a decoding analysis involves several steps:
+
+1. Creating a datasource (DS) object that generates training and test splits of the data.
+
+``` {r decode_datasource}
+
+# Fewer groups for speed. Up to 50 seems appropriate
+variable_to_decode <- "natural_scene_stimulus_id"
+num_cv_splits <- 20
+  
+ds <- ds_basic(binned_file_name, variable_to_decode, num_cv_splits)
+
+
+```
+
+2. Optionally creating feature-preprocessor (FP) objects that learn parameters from the training data, and preprocess the training and test data.
+
+``` {r decode_feature_processing}
+
+fps <- list(fp_zscore())
+
+```
+
+3. Creating a classifier (CL) object that learns the relationship between the training data and training labels, and then evaluates the strength of this relationship on the test data.
+
+``` {r decode_classifier}
+
+cl <- cl_max_correlation()
+
+```
+
+4. Creating result metric (RM) objects that aggregate the predictions to create result summaries.
+
+``` {r decode_results}
+
+rms <- list(rm_main_results(), rm_confusion_matrix())
+
+```
+
+5. Running a cross-validator object that using the datasource (DS), the feature-preprocessor (FP) and the classifier (CL) objects to do a cross-validation procedure that estimates the decoding accuracy.
+
+``` {r decode_cross_validate}
+
+# Default parameters for a quick run (resamples increased to 50)
+
+cv <- cv_standard(datasource = ds, 
+                  classifier = cl, 
+                  feature_preprocessors = fps, 
+                  result_metrics = rms, 
+                  num_resample_runs = 2)
+
+
+```
+
+``` {r run_analysis}
+
+DECODING_RESULTS <- run_decoding(cv)
+
+```
+
+``` {r visualize_results} 
+
+plot(DECODING_RESULTS$rm_main_results)
+
+plot(DECODING_RESULTS$rm_main_results, results_to_show = 'all', type = 'line')
+
+plot(DECODING_RESULTS$rm_confusion_matrix)
+
+plot(DECODING_RESULTS$rm_confusion_matrix, results_to_show = "mutual_information")
+
+```
+

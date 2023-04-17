@@ -57,6 +57,7 @@ function convertOphysToRaster(ophysSession, ...
     raster_data = zeros(width(session_dff), 1);
 
     % Iterate through all the cells
+    % for c = 1:width(session_dff)
     for c = 1:width(session_dff)
 
         disp("Checking element " + c + " of " + width(session_dff))
@@ -87,27 +88,27 @@ function convertOphysToRaster(ophysSession, ...
         raster_labels.natural_scene_stimulus_id = natural_scenes_stimulus_times.frame;
     
         % Create the raster_site_info struct
-        % This information also may not be advanced enough, check on this later
+        % Not all information is imported just yet. Fix this later
 
-        stimulus_info_names = fieldnames(ophysSession.info)
+        stimulus_info_names = fieldnames(ophysSession.info);
 
         for iInfo = 1:(length(stimulus_info_names))
     
             %eval(['raster_site_info.' stimulus_info_names{iInfo} ' = table2array(raster_site_info.' stimulus_info_names{iInfo} ');']);
             curr_site_info_is_a_string = eval(['isstring(ophysSession.info.' stimulus_info_names{iInfo} ');']);
-            curr_site_info_is_a_datetime = eval(['isdatetime(ophysSession.info.info.' stimulus_info_names{iInfo} ');']);
-            curr_site_info_is_a_categorical = eval(['iscategorical(raster_site_info.' stimulus_info_names{iInfo} ');']);
-            curr_site_info_is_a_struct = eval(['isstruct(raster_site_info.' stimulus_info_names{iInfo} ');']);
-            curr_site_info_is_a_table = eval(['istable(raster_site_info.' stimulus_info_names{iInfo} ');']);
+            curr_site_info_is_a_datetime = eval(['isdatetime(ophysSession.info.' stimulus_info_names{iInfo} ');']);
+            curr_site_info_is_a_categorical = eval(['iscategorical(ophysSession.info.' stimulus_info_names{iInfo} ');']);
+            curr_site_info_is_a_struct = eval(['isstruct(ophysSession.info.' stimulus_info_names{iInfo} ');']);
+            curr_site_info_is_a_table = eval(['istable(ophysSession.info.' stimulus_info_names{iInfo} ');']);
             
             % convert to chars which works better with the NDT
             if (curr_site_info_is_a_string || curr_site_info_is_a_datetime || curr_site_info_is_a_categorical)
-                eval(['raster_site_info.' stimulus_info_names{iInfo} ' = char(raster_site_info.' stimulus_info_names{iInfo} ');']);
+                eval(['raster_site_info.' stimulus_info_names{iInfo} ' = char(ophysSession.info.' stimulus_info_names{iInfo} ');']);
             end
         
             % Convert structs
             if (curr_site_info_is_a_struct || curr_site_info_is_a_table)
-                eval(['raster_site_info.' stimulus_info_names{iInfo} ' = "Not imported yet";']);
+                eval(['raster_site_info.' stimulus_info_names{iInfo} ' = char("Not imported yet");']);
             end
            
         end

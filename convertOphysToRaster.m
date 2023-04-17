@@ -107,7 +107,7 @@ function convertOphysToRaster(ophysSession, ...
         
             % Convert structs
             if (curr_site_info_is_a_struct || curr_site_info_is_a_table)
-                eval(['raster_site_info.' stimulus_info_names{iInfo} ' = "Not imported yet";']);
+                eval(['raster_site_info.' stimulus_info_names{iInfo} ' = char("Not imported yet");']);
             end
            
         end

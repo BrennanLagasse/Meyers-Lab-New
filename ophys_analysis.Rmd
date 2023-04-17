@@ -34,13 +34,16 @@ plot(raster_data, main = "Test")
 
 ```{r bin_data}
 
+
 save_dir_name <- file.path("R_OphysData_Binned", "session_496908818", "natural_scenes")
 
 # Sampling interval is the amount of time between measures
 
 binned_file_name <- create_binned_data(raster_dir_name,
                                        file.path(save_dir_name, "ZD"),
-                                       1, 32)
+                                       2, 1)
+
+# Technically -300 to -261
 
 ```
 

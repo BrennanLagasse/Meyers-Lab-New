@@ -18,7 +18,7 @@ r_dir = "./R_OphysData/"
 matlab_dir = "./OphysData/"
 
 folder = paste0(r_dir, session_names[1], "/natural_scenes/")
-test <- paste0(f, list.files(f)[1])
+#test <- paste0(f, list.files(f)[1])
 
 # Converts a session from Matlab to R
 # session_name is a string that is the name of the session
@@ -49,8 +49,6 @@ convert_one_session <- function(session_name, start, end, observations) {
   for(rastered_table in rastered_data) {
     a = load(rastered_table)
   }
-  
-  
   
 }
 

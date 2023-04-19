@@ -19,8 +19,10 @@ library(tidyr)
 
 ```{r load_raster_data}
 
-raster_dir_name = file.path("R_EphysData", "session_715093703", "natural_scenes")
-file_name = "950910364.rda"
+session_name = "session_742951821"
+
+raster_dir_name = file.path("R_EphysData", session_name, "natural_scenes")
+file_name = "950920817.rda"
 load(file.path(raster_dir_name, file_name))
 
 test_valid_raster_format(file.path(raster_dir_name, file_name))
@@ -32,7 +34,7 @@ plot(raster_data)
 
 ```{r bin_data}
 
-save_dir_name <- file.path("R_EphysData_Binned", "session_715093703", "natural_scenes")
+save_dir_name <- file.path("R_EphysData_Binned", session_name, "natural_scenes")
 
 binned_file_name <- create_binned_data(raster_dir_name, file.path(save_dir_name, "ZD"), 150, 50)
 
@@ -40,7 +42,7 @@ binned_file_name <- create_binned_data(raster_dir_name, file.path(save_dir_name,
 
 ``` {r stimulus_counts}
 
-label_rep_info <- get_num_label_repetitions(binned_file_name, "stimulus_ID") 
+label_rep_info <- get_num_label_repetitions(binned_file_name, "natural_scene_stimulus_id") 
 plot(label_rep_info)  
 
 ```
@@ -54,10 +56,10 @@ Performing a decoding analysis involves several steps:
 
 ``` {r decode_datasource}
 
-# Fewer groups for speed. Up to 59 seems appropriate
-variable_to_decode <- "stimulus_ID"
+# Fewer groups for speed. Up to 49 seems appropriate
+variable_to_decode <- "natural_scene_stimulus_id"
 num_cv_splits <- 20
-  
+
 ds <- ds_basic(binned_file_name, variable_to_decode, num_cv_splits)
 
 

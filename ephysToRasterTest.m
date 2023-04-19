@@ -10,7 +10,7 @@
 % valid brain observatory session numbers are:   1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19    20
 % 21    22    23    24    25    26    27    33    42    45    46    47
 
-session_number_to_convert = 11 %to do: 3, 18    %complete: 11, 1, 2
+session_number_to_convert = 7 %to do: 3, 18    %complete: 11, 1, 2
 
 % add the BOT to the path
 BOTdirName = '/vast/palmer/home.grace/em939/research/brain_observatory_analysis/github_BOT/Brain-Observatory-Toolbox' %'Brain-Observatory-Toolbox';

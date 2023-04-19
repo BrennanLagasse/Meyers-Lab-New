@@ -14,7 +14,7 @@ library(dplyr)
 
 #session_names <- list.files("EphysData/")
 
-session_names <- c("session_715093703")
+session_names <- c("session_742951821")
 
 r_dir = "./R_EphysData/"
 matlab_dir = "./EphysData/"

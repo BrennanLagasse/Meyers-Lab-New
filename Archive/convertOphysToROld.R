@@ -29,8 +29,8 @@ convert_one_session <- function(session_name, start, end) {
   convert_matlab_raster_data(matlab_raster_dir_name, r_raster_dir_name)
   
   # PROBLEM - Bins are still off
+  
 }
-
 
 
 
@@ -46,11 +46,16 @@ test <- paste0(folder, list.files(folder)[1])
 
 print("Starting Conversion")
 
+new_times = c();
+
+
+
 for (curr_name in session_names) {
   
   print(curr_name)
   
   convert_one_session(curr_name, -300, 700)
+
   
 }
 

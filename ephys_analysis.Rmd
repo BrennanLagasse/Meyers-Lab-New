@@ -1,7 +1,7 @@
 ---
-title: "neuro_decode_practice"
-author: "Brennan"
-date: "2022-11-07"
+title: "Ephys Analysis"
+author: "Brennan Lagasse"
+date: "2023-04-25"
 output: pdf_document
 ---
 
@@ -119,6 +119,17 @@ plot(DECODING_RESULTS$rm_main_results, results_to_show = 'all', type = 'line')
 plot(DECODING_RESULTS$rm_confusion_matrix)
 
 plot(DECODING_RESULTS$rm_confusion_matrix, results_to_show = "mutual_information")
+
+```
+
+
+``` {r save_results}
+
+results_dir_name <- file.path(tempdir(), "Decoding_Results", "")
+dir.create(results_dir_name)
+
+log_save_results(DECODING_RESULTS, results_dir_name)
+
 
 ```
 

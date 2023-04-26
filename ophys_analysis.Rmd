@@ -1,7 +1,7 @@
 ---
 title: "Ophys Single Session Analysis"
 author: "Brennan Lagasse, Advised by Dr. Ethan Meyers"
-date: "2023-3-26"
+date: "2023-04-25"
 output: pdf_document
 ---
 
@@ -31,11 +31,6 @@ plot(raster_data, main = "Test")
 
 ```
 
-``` {r test_methods} 
-
-
-```
-
 
 ```{r bin_data}
 
@@ -46,7 +41,7 @@ save_dir_name <- file.path("R_OphysData_Binned", "session_496908818", "natural_s
 
 binned_file_name <- create_binned_data(raster_dir_name,
                                        file.path(save_dir_name, "ZD"),
-                                       2, 1)
+                                       1, 2)
 
 # Technically -300 to -261
 
@@ -131,6 +126,15 @@ plot(DECODING_RESULTS$rm_main_results, results_to_show = 'all', type = 'line')
 plot(DECODING_RESULTS$rm_confusion_matrix)
 
 plot(DECODING_RESULTS$rm_confusion_matrix, results_to_show = "mutual_information")
+
+```
+
+``` {r log_results}
+
+results_dir_name <- file.path("Decoding_Results")
+dir.create(results_dir_name)
+
+log_save_results(DECODING_RESULTS, results_dir_name)
 
 ```
 

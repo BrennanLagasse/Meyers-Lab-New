@@ -36,7 +36,7 @@ plot(raster_data)
 
 save_dir_name <- file.path("R_EphysData_Binned", session_name, "natural_scenes")
 
-binned_file_name <- create_binned_data(raster_dir_name, file.path(save_dir_name, "ZD"), 150, 50)
+binned_file_name <- create_binned_data(raster_dir_name, file.path(save_dir_name, "ZD"), 32, 64)
 
 ```
 
@@ -125,7 +125,7 @@ plot(DECODING_RESULTS$rm_confusion_matrix, results_to_show = "mutual_information
 
 ``` {r save_results}
 
-results_dir_name <- file.path(tempdir(), "Decoding_Results", "")
+results_dir_name <- file.path("Decoding_Results")
 dir.create(results_dir_name)
 
 log_save_results(DECODING_RESULTS, results_dir_name)

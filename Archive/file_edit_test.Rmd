@@ -1,0 +1,46 @@
+---
+title: "Edit File Test"
+author: "Brennan"
+date: "2023-04-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r read_data}
+
+
+myfil <- paste0("sample_ophys", fileext = ".rda")
+
+load(myfil)
+
+new_times = c();
+
+for (i in 1:31) {
+  start = floor(-300 + (1000/31 * (i - 1)))
+  end = floor(-300 + 1000/31 * i)
+  
+  new_times[i] = paste("time.", start, "_", end, sep = "")
+}
+
+new_names = names(raster_data);
+
+new_names[11:41] <- new_times;
+
+names(raster_data) <- new_names;
+
+
+
+```
+
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+

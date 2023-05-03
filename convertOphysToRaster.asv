@@ -1,4 +1,4 @@
-            % File: convertOphysToRaster.m
+% File: convertOphysToRaster.m
 % Author: Brennan Lagasse, uses code from convertEphysToRaster from Dr. Ethan
 % Meyers
 % Purpose: Converts data from the Allen Institue Two Photon Imaging experiment
@@ -126,5 +126,7 @@ function convertOphysToRaster(ophysSession, ...
     
     end
 end
+
+function
     
-    
+        

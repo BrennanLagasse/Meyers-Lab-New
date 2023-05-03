@@ -10,11 +10,17 @@ ophysSessions = bot.fetchSessions('ophys');
 % natural scenes stimulus is shown for part of the time
 filteredSessions = ophysSessions(ophysSessions.stimulus_name == "three_session_B", :);
 
-% Grab a test session from the filtered data
-testSession = filteredSessions(1,:);
+% Convert all ophys sessions:
 
-% Grab the data for that test session
-testSessionData = bot.session(testSession);
+for i = 1:size(filteredSessions, 2)
 
-% Convert the data
-convertOphysToRaster(testSessionData, 300, 700, "OphysData");
+    % Grab a test session from the filtered data
+    testSession = filteredSessions(i,:);
+    
+    % Grab the data for that test session
+    testSessionData = bot.session(testSession);
+    
+    % Convert the data
+    convertOphysToRaster(testSessionData, 300, 700, "OphysData");
+
+end

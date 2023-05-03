@@ -1,4 +1,4 @@
-% File: convertOphysToRaster.m
+            % File: convertOphysToRaster.m
 % Author: Brennan Lagasse, uses code from convertEphysToRaster from Dr. Ethan
 % Meyers
 % Purpose: Converts data from the Allen Institue Two Photon Imaging experiment
@@ -57,6 +57,7 @@ function convertOphysToRaster(ophysSession, ...
     raster_data = zeros(width(session_dff), 1);
 
     % Iterate through all the cells
+
     for c = 1:width(session_dff)
 
         disp("Checking element " + c + " of " + width(session_dff))
@@ -94,11 +95,18 @@ function convertOphysToRaster(ophysSession, ...
         for iInfo = 1:(length(stimulus_info_names))
     
             %eval(['raster_site_info.' stimulus_info_names{iInfo} ' = table2array(raster_site_info.' stimulus_info_names{iInfo} ');']);
+            curr_site_info_is_a_logical = eval(['islogical(ophysSession.info.' stimulus_info_names{iInfo} ');']);
+            curr_site_info_is_a_number = eval(['isnumeric(ophysSession.info.' stimulus_info_names{iInfo} ');']);
             curr_site_info_is_a_string = eval(['isstring(ophysSession.info.' stimulus_info_names{iInfo} ');']);
             curr_site_info_is_a_datetime = eval(['isdatetime(ophysSession.info.' stimulus_info_names{iInfo} ');']);
             curr_site_info_is_a_categorical = eval(['iscategorical(ophysSession.info.' stimulus_info_names{iInfo} ');']);
             curr_site_info_is_a_struct = eval(['isstruct(ophysSession.info.' stimulus_info_names{iInfo} ');']);
             curr_site_info_is_a_table = eval(['istable(ophysSession.info.' stimulus_info_names{iInfo} ');']);
+
+            % No changes needed
+            if (curr_site_info_is_a_logical || curr_site_info_is_a_number)
+                eval(['raster_site_info.' stimulus_info_names{iInfo} ' = ophysSession.info.' stimulus_info_names{iInfo} ';']);
+            end
             
             % convert to chars which works better with the NDT
             if (curr_site_info_is_a_string || curr_site_info_is_a_datetime || curr_site_info_is_a_categorical)
@@ -119,4 +127,4 @@ function convertOphysToRaster(ophysSession, ...
     end
 end
     
-        
+    
